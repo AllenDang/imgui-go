@@ -10,7 +10,6 @@ extern IggContext iggCreateContext(IggFontAtlas sharedFontAtlas);
 extern void iggDestroyContext(IggContext context);
 extern IggContext iggGetCurrentContext();
 extern void iggSetCurrentContext(IggContext context);
-extern void iggSetMaxWaitBeforeNextFrame(double time);
 
 extern IggIO iggGetCurrentIO(void);
 extern IggGuiStyle iggGetCurrentStyle(void);
@@ -19,16 +18,13 @@ extern void iggRender(void);
 extern IggDrawData iggGetDrawData(void);
 extern void iggEndFrame(void);
 
-extern double iggGetEventWaitingTime(void);
-
 extern char const *iggGetVersion(void);
 extern void iggShowDemoWindow(IggBool *open);
 extern void iggShowUserGuide(void);
 
 extern IggBool iggBegin(char const *id, IggBool *open, int flags);
 extern void iggEnd(void);
-extern IggBool iggBeginChild(char const *id, IggVec2 const *size,
-                             IggBool border, int flags);
+extern IggBool iggBeginChild(char const *id, IggVec2 const *size, IggBool border, int flags);
 extern void iggEndChild(void);
 
 extern void iggWindowPos(IggVec2 *pos);
@@ -42,8 +38,7 @@ extern IggBool iggIsWindowCollapsed();
 extern IggBool iggIsWindowFocused(int flags);
 extern IggBool iggIsWindowHovered(int flags);
 
-extern void iggSetNextWindowPos(IggVec2 const *pos, int cond,
-                                IggVec2 const *pivot);
+extern void iggSetNextWindowPos(IggVec2 const *pos, int cond, IggVec2 const *pivot);
 extern void iggSetNextWindowSize(IggVec2 const *size, int cond);
 extern void iggSetNextWindowContentSize(IggVec2 const *size);
 extern void iggSetNextWindowFocus(void);
@@ -56,9 +51,7 @@ extern void iggPopStyleColor(int count);
 extern void iggPushStyleVarFloat(int index, float value);
 extern void iggPushStyleVarVec2(int index, IggVec2 const *value);
 extern void iggPopStyleVar(int count);
-extern void iggCalcTextSize(const char *text, int length,
-                            IggBool hide_text_after_double_hash,
-                            float wrap_width, IggVec2 *value);
+extern void iggCalcTextSize(const char *text, int length, IggBool hide_text_after_double_hash, float wrap_width, IggVec2 *value);
 extern unsigned int iggGetColorU32(const IggVec4 col);
 
 extern void iggBeginDisabled(IggBool disabled);
@@ -87,56 +80,36 @@ extern void iggLabelText(char const *label, char const *text);
 
 extern IggBool iggButton(char const *label, IggVec2 const *size);
 extern IggBool iggSmallButton(char const *label);
-extern IggBool iggArrowButton(const char* id, unsigned char dir);
+extern IggBool iggArrowButton(const char *id, unsigned char dir);
 extern IggBool iggInvisibleButton(char const *label, IggVec2 const *size);
-extern void iggImage(IggTextureID textureID, IggVec2 const *size,
-                     IggVec2 const *uv0, IggVec2 const *uv1,
-                     IggVec4 const *tintCol, IggVec4 const *borderCol);
-extern IggBool iggImageButton(IggTextureID textureID, IggVec2 const *size,
-                              IggVec2 const *uv0, IggVec2 const *uv1,
-                              int framePadding, IggVec4 const *bgCol,
-                              IggVec4 const *tintCol);
+extern void iggImage(IggTextureID textureID, IggVec2 const *size, IggVec2 const *uv0, IggVec2 const *uv1, IggVec4 const *tintCol, IggVec4 const *borderCol);
+extern IggBool iggImageButton(IggTextureID textureID, IggVec2 const *size, IggVec2 const *uv0, IggVec2 const *uv1, int framePadding, IggVec4 const *bgCol, IggVec4 const *tintCol);
 extern IggBool iggCheckbox(char const *label, IggBool *selected);
 extern IggBool iggRadioButton(char const *label, IggBool active);
-extern void iggProgressBar(float fraction, IggVec2 const *size,
-                           char const *overlay);
+extern void iggProgressBar(float fraction, IggVec2 const *size, char const *overlay);
 
 extern void iggBullet(void);
-extern void iggBulletText(const char* text);
+extern void iggBulletText(const char *text);
 
-extern IggBool iggBeginCombo(char const *label, char const *previewValue,
-                             int flags);
+extern IggBool iggBeginCombo(char const *label, char const *previewValue, int flags);
 extern void iggEndCombo(void);
 
-extern IggBool iggDragFloat(char const *label, float *value, float speed,
-                            float min, float max, char const *format,
-                            float power);
-extern IggBool iggDragInt(char const *label, int *value, float speed, int min,
-                          int max, char const *format);
+extern IggBool iggDragFloat(char const *label, float *value, float speed, float min, float max, char const *format, float power);
+extern IggBool iggDragInt(char const *label, int *value, float speed, int min, int max, char const *format);
 
-extern IggBool iggSliderFloat(char const *label, float *value, float minValue,
-                              float maxValue, char const *format, float power);
-extern IggBool iggSliderFloatN(char const *label, float *value, int n,
-                               float minValue, float maxValue,
-                               char const *format, float power);
+extern IggBool iggSliderFloat(char const *label, float *value, float minValue, float maxValue, char const *format, float power);
+extern IggBool iggSliderFloatN(char const *label, float *value, int n, float minValue, float maxValue, char const *format, float power);
 
-extern IggBool iggSliderInt(char const *label, int *value, int minValue,
-                            int maxValue, char const *format);
+extern IggBool iggSliderInt(char const *label, int *value, int minValue, int maxValue, char const *format);
 
-extern IggBool iggVSliderInt(const char* label, const IggVec2 *size, int* v, int v_min, int v_max, const char* format, int flags);
+extern IggBool iggVSliderInt(const char *label, const IggVec2 *size, int *v, int v_min, int v_max, const char *format, int flags);
 
-extern IggBool iggInputText(char const *label, char *buf, unsigned int bufSize,
-                            int flags, int callbackKey);
-extern IggBool iggInputTextWithHint(char const *label, char const *hint, char *buf, unsigned int bufSize,
-                            int flags, int callbackKey);
-extern IggBool iggInputTextMultiline(char const *label, char *buf,
-                                     unsigned int bufSize, IggVec2 const *size,
-                                     int flags, int callbackKey);
+extern IggBool iggInputText(char const *label, char *buf, unsigned int bufSize, int flags, int callbackKey);
+extern IggBool iggInputTextWithHint(char const *label, char const *hint, char *buf, unsigned int bufSize, int flags, int callbackKey);
+extern IggBool iggInputTextMultiline(char const *label, char *buf, unsigned int bufSize, IggVec2 const *size, int flags, int callbackKey);
 
-extern IggBool iggInputInt(char const *label, int *v, int step, int step_fast,
-                           int flags);
-extern IggBool iggInputFloat(char const *label, float *v, float step,
-                             float step_fast, const char *format, int flats);
+extern IggBool iggInputInt(char const *label, int *v, int step, int step_fast, int flags);
+extern IggBool iggInputFloat(char const *label, float *v, float step, float step_fast, const char *format, int flats);
 
 extern IggBool iggColorEdit3(char const *label, float *col, int flags);
 extern IggBool iggColorEdit4(char const *label, float *col, int flags);
@@ -170,20 +143,11 @@ extern void iggTreePop(void);
 extern void iggSetNextItemOpen(IggBool open, int cond);
 extern float iggGetTreeNodeToLabelSpacing(void);
 
-extern IggBool iggSelectable(char const *label, IggBool selected, int flags,
-                             IggVec2 const *size);
-extern IggBool iggListBoxV(char const *label, int *currentItem,
-                           char const *const items[], int itemCount,
-                           int heightItems);
+extern IggBool iggSelectable(char const *label, IggBool selected, int flags, IggVec2 const *size);
+extern IggBool iggListBoxV(char const *label, int *currentItem, char const *const items[], int itemCount, int heightItems);
 
-extern void iggPlotLines(const char *label, const float *values,
-                         int valuesCount, int valuesOffset,
-                         const char *overlayText, float scaleMin,
-                         float scaleMax, IggVec2 const *graphSize);
-extern void iggPlotHistogram(const char *label, const float *values,
-                             int valuesCount, int valuesOffset,
-                             const char *overlayText, float scaleMin,
-                             float scaleMax, IggVec2 const *graphSize);
+extern void iggPlotLines(const char *label, const float *values, int valuesCount, int valuesOffset, const char *overlayText, float scaleMin, float scaleMax, IggVec2 const *graphSize);
+extern void iggPlotHistogram(const char *label, const float *values, int valuesCount, int valuesOffset, const char *overlayText, float scaleMin, float scaleMax, IggVec2 const *graphSize);
 
 extern void iggSetTooltip(char const *text);
 extern void iggBeginTooltip(void);
@@ -195,8 +159,7 @@ extern IggBool iggBeginMenuBar(void);
 extern void iggEndMenuBar(void);
 extern IggBool iggBeginMenu(char const *label, IggBool enabled);
 extern void iggEndMenu(void);
-extern IggBool iggMenuItem(char const *label, char const *shortcut,
-                           IggBool selected, IggBool enabled);
+extern IggBool iggMenuItem(char const *label, char const *shortcut, IggBool selected, IggBool enabled);
 
 extern void iggOpenPopup(char const *id);
 extern IggBool iggBeginPopup(char const *name, int flags);

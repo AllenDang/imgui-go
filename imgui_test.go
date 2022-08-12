@@ -9,5 +9,5 @@ import (
 
 func TestVersion(t *testing.T) {
 	version := imgui.Version()
-	assert.Equal(t, "1.86", version)
+	assert.Equal(t, "1.88", version)
 }

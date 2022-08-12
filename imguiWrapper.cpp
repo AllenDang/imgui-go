@@ -13,8 +13,6 @@ IggContext iggGetCurrentContext() { return reinterpret_cast<IggContext>(ImGui::G
 
 void iggSetCurrentContext(IggContext context) { ImGui::SetCurrentContext(reinterpret_cast<ImGuiContext *>(context)); }
 
-void iggSetMaxWaitBeforeNextFrame(double time) { ImGui::SetMaxWaitBeforeNextFrame(time); }
-
 IggIO iggGetCurrentIO() { return reinterpret_cast<IggIO>(&ImGui::GetIO()); }
 
 IggGuiStyle iggGetCurrentStyle() { return reinterpret_cast<IggGuiStyle>(&ImGui::GetStyle()); }
@@ -26,8 +24,6 @@ void iggRender() { ImGui::Render(); }
 IggDrawData iggGetDrawData() { return reinterpret_cast<IggDrawData>(ImGui::GetDrawData()); }
 
 void iggEndFrame() { ImGui::EndFrame(); }
-
-double iggGetEventWaitingTime() { return ImGui::GetEventWaitingTime(); }
 
 char const *iggGetVersion() { return ImGui::GetVersion(); }
 
