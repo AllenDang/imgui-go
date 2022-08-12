@@ -220,7 +220,7 @@ func (platform *GLFW) SetShouldStop(v bool) {
 
 // ProcessEvents handles all pending window events.
 func (platform *GLFW) ProcessEvents() {
-	glfw.WaitEvents()
+	glfw.WaitEventsTimeout(1)
 	glfw.PollEvents()
 }
 
@@ -635,6 +635,8 @@ func (platform *GLFW) updateKeyModifiers(mods glfw.ModifierKey) {
 }
 
 func (platform *GLFW) keyChange(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
+	platform.Update()
+
 	if action != glfw.Press && action != glfw.Release {
 		return
 	}
@@ -660,6 +662,7 @@ func (platform *GLFW) keyChange(window *glfw.Window, key glfw.Key, scancode int,
 }
 
 func (platform *GLFW) charChange(window *glfw.Window, char rune) {
+	platform.Update()
 	platform.imguiIO.AddInputCharacters(string(char))
 	platform.Update()
 }
