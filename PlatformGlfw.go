@@ -218,13 +218,9 @@ func (platform *GLFW) SetShouldStop(v bool) {
 	platform.window.SetShouldClose(v)
 }
 
-func (platform *GLFW) WaitForEvent() {
-	glfw.WaitEvents()
-}
-
 // ProcessEvents handles all pending window events.
 func (platform *GLFW) ProcessEvents() {
-	platform.WaitForEvent()
+	glfw.WaitEvents()
 	glfw.PollEvents()
 }
 
