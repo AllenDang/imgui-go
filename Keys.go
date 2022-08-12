@@ -3,213 +3,151 @@ package imgui
 // Constants to fill IO.KeyMap() lookup with indices into the IO.KeysDown[512] array.
 // The mapped indices are then the ones reported to IO.KeyPress() and IO.KeyRelease().
 const (
-	// Keyboard
-	ImGuiKey_None = 0
-
-	ImGuiKey_Tab = iota + 512 // == ImGuiKey_NamedKey_BEGIN
-	ImGuiKey_LeftArrow
-
-	ImGuiKey_RightArrow
-
-	ImGuiKey_UpArrow
-
-	ImGuiKey_DownArrow
-
-	ImGuiKey_PageUp
-
-	ImGuiKey_PageDown
-
-	ImGuiKey_Home
-
-	ImGuiKey_End
-
-	ImGuiKey_Insert
-
-	ImGuiKey_Delete
-
-	ImGuiKey_Backspace
-
-	ImGuiKey_Space
-
-	ImGuiKey_Enter
-
-	ImGuiKey_Escape
-
-	ImGuiKey_LeftCtrl
-	ImGuiKey_LeftShift
-	ImGuiKey_LeftAlt
-	ImGuiKey_LeftSuper
-
-	ImGuiKey_RightCtrl
-	ImGuiKey_RightShift
-	ImGuiKey_RightAlt
-	ImGuiKey_RightSuper
-
-	ImGuiKey_Menu
-
-	ImGuiKey_0
-	ImGuiKey_1
-	ImGuiKey_2
-	ImGuiKey_3
-	ImGuiKey_4
-	ImGuiKey_5
-	ImGuiKey_6
-	ImGuiKey_7
-	ImGuiKey_8
-	ImGuiKey_9
-
-	ImGuiKey_A
-	ImGuiKey_B
-	ImGuiKey_C
-	ImGuiKey_D
-	ImGuiKey_E
-	ImGuiKey_F
-	ImGuiKey_G
-	ImGuiKey_H
-	ImGuiKey_I
-	ImGuiKey_J
-
-	ImGuiKey_K
-	ImGuiKey_L
-	ImGuiKey_M
-	ImGuiKey_N
-	ImGuiKey_O
-	ImGuiKey_P
-	ImGuiKey_Q
-	ImGuiKey_R
-	ImGuiKey_S
-	ImGuiKey_T
-
-	ImGuiKey_U
-	ImGuiKey_V
-	ImGuiKey_W
-	ImGuiKey_X
-	ImGuiKey_Y
-	ImGuiKey_Z
-
-	ImGuiKey_F1
-	ImGuiKey_F2
-	ImGuiKey_F3
-	ImGuiKey_F4
-	ImGuiKey_F5
-	ImGuiKey_F6
-
-	ImGuiKey_F7
-	ImGuiKey_F8
-	ImGuiKey_F9
-	ImGuiKey_F10
-	ImGuiKey_F11
-	ImGuiKey_F12
-
-	ImGuiKey_Apostrophe
-
-	ImGuiKey_Comma
-
-	ImGuiKey_Minus
-
-	ImGuiKey_Period
-
-	ImGuiKey_Slash
-
-	ImGuiKey_Semicolon
-
-	ImGuiKey_Equal
-
-	ImGuiKey_LeftBracket
-
-	ImGuiKey_Backslash
-
-	ImGuiKey_RightBracket
-
-	ImGuiKey_GraveAccent
-
-	ImGuiKey_CapsLock
-
-	ImGuiKey_ScrollLock
-
-	ImGuiKey_NumLock
-
-	ImGuiKey_PrintScreen
-
-	ImGuiKey_Pause
-
-	ImGuiKey_Keypad0
-	ImGuiKey_Keypad1
-	ImGuiKey_Keypad2
-	ImGuiKey_Keypad3
-	ImGuiKey_Keypad4
-
-	ImGuiKey_Keypad5
-	ImGuiKey_Keypad6
-	ImGuiKey_Keypad7
-	ImGuiKey_Keypad8
-	ImGuiKey_Keypad9
-
-	ImGuiKey_KeypadDecimal
-
-	ImGuiKey_KeypadDivide
-
-	ImGuiKey_KeypadMultiply
-
-	ImGuiKey_KeypadSubtract
-
-	ImGuiKey_KeypadAdd
-
-	ImGuiKey_KeypadEnter
-
-	ImGuiKey_KeypadEqual
-
-	ImGuiKey_GamepadStart
-
-	ImGuiKey_GamepadBack
-
-	ImGuiKey_GamepadFaceUp
-
-	ImGuiKey_GamepadFaceDown
-
-	ImGuiKey_GamepadFaceLeft
-
-	ImGuiKey_GamepadFaceRight
-
-	ImGuiKey_GamepadDpadUp
-
-	ImGuiKey_GamepadDpadDown
-
-	ImGuiKey_GamepadDpadLeft
-
-	ImGuiKey_GamepadDpadRight
-	ImGuiKey_GamepadL1
-
-	ImGuiKey_GamepadR1
-
-	ImGuiKey_GamepadL2
-
-	ImGuiKey_GamepadR2
-
-	ImGuiKey_GamepadL3
-
-	ImGuiKey_GamepadR3
-
-	ImGuiKey_GamepadLStickUp
-
-	ImGuiKey_GamepadLStickDown
-
-	ImGuiKey_GamepadLStickLeft
-
-	ImGuiKey_GamepadLStickRight
-
-	ImGuiKey_GamepadRStickUp
-
-	ImGuiKey_GamepadRStickDown
-
-	ImGuiKey_GamepadRStickLeft
-
-	ImGuiKey_GamepadRStickRight
-
-	ImGuiKey_ModCtrl
-	ImGuiKey_ModShift
-	ImGuiKey_ModAlt
-	ImGuiKey_ModSuper
-
-	ImGuiKey_COUNT
+	ImGuiKey_None               = 0
+	ImGuiKey_Tab                = 512
+	ImGuiKey_LeftArrow          = 513
+	ImGuiKey_RightArrow         = 514
+	ImGuiKey_UpArrow            = 515
+	ImGuiKey_DownArrow          = 516
+	ImGuiKey_PageUp             = 517
+	ImGuiKey_PageDown           = 518
+	ImGuiKey_Home               = 519
+	ImGuiKey_End                = 520
+	ImGuiKey_Insert             = 521
+	ImGuiKey_Delete             = 522
+	ImGuiKey_Backspace          = 523
+	ImGuiKey_Space              = 524
+	ImGuiKey_Enter              = 525
+	ImGuiKey_Escape             = 526
+	ImGuiKey_LeftCtrl           = 527
+	ImGuiKey_LeftShift          = 528
+	ImGuiKey_LeftAlt            = 529
+	ImGuiKey_LeftSuper          = 530
+	ImGuiKey_RightCtrl          = 531
+	ImGuiKey_RightShift         = 532
+	ImGuiKey_RightAlt           = 533
+	ImGuiKey_RightSuper         = 534
+	ImGuiKey_Menu               = 535
+	ImGuiKey_0                  = 536
+	ImGuiKey_1                  = 537
+	ImGuiKey_2                  = 538
+	ImGuiKey_3                  = 539
+	ImGuiKey_4                  = 540
+	ImGuiKey_5                  = 541
+	ImGuiKey_6                  = 542
+	ImGuiKey_7                  = 543
+	ImGuiKey_8                  = 544
+	ImGuiKey_9                  = 545
+	ImGuiKey_A                  = 546
+	ImGuiKey_B                  = 547
+	ImGuiKey_C                  = 548
+	ImGuiKey_D                  = 549
+	ImGuiKey_E                  = 550
+	ImGuiKey_F                  = 551
+	ImGuiKey_G                  = 552
+	ImGuiKey_H                  = 553
+	ImGuiKey_I                  = 554
+	ImGuiKey_J                  = 555
+	ImGuiKey_K                  = 556
+	ImGuiKey_L                  = 557
+	ImGuiKey_M                  = 558
+	ImGuiKey_N                  = 559
+	ImGuiKey_O                  = 560
+	ImGuiKey_P                  = 561
+	ImGuiKey_Q                  = 562
+	ImGuiKey_R                  = 563
+	ImGuiKey_S                  = 564
+	ImGuiKey_T                  = 565
+	ImGuiKey_U                  = 566
+	ImGuiKey_V                  = 567
+	ImGuiKey_W                  = 568
+	ImGuiKey_X                  = 569
+	ImGuiKey_Y                  = 570
+	ImGuiKey_Z                  = 571
+	ImGuiKey_F1                 = 572
+	ImGuiKey_F2                 = 573
+	ImGuiKey_F3                 = 574
+	ImGuiKey_F4                 = 575
+	ImGuiKey_F5                 = 576
+	ImGuiKey_F6                 = 577
+	ImGuiKey_F7                 = 578
+	ImGuiKey_F8                 = 579
+	ImGuiKey_F9                 = 580
+	ImGuiKey_F10                = 581
+	ImGuiKey_F11                = 582
+	ImGuiKey_F12                = 583
+	ImGuiKey_Apostrophe         = 584
+	ImGuiKey_Comma              = 585
+	ImGuiKey_Minus              = 586
+	ImGuiKey_Period             = 587
+	ImGuiKey_Slash              = 588
+	ImGuiKey_Semicolon          = 589
+	ImGuiKey_Equal              = 590
+	ImGuiKey_LeftBracket        = 591
+	ImGuiKey_Backslash          = 592
+	ImGuiKey_RightBracket       = 593
+	ImGuiKey_GraveAccent        = 594
+	ImGuiKey_CapsLock           = 595
+	ImGuiKey_ScrollLock         = 596
+	ImGuiKey_NumLock            = 597
+	ImGuiKey_PrintScreen        = 598
+	ImGuiKey_Pause              = 599
+	ImGuiKey_Keypad0            = 600
+	ImGuiKey_Keypad1            = 601
+	ImGuiKey_Keypad2            = 602
+	ImGuiKey_Keypad3            = 603
+	ImGuiKey_Keypad4            = 604
+	ImGuiKey_Keypad5            = 605
+	ImGuiKey_Keypad6            = 606
+	ImGuiKey_Keypad7            = 607
+	ImGuiKey_Keypad8            = 608
+	ImGuiKey_Keypad9            = 609
+	ImGuiKey_KeypadDecimal      = 610
+	ImGuiKey_KeypadDivide       = 611
+	ImGuiKey_KeypadMultiply     = 612
+	ImGuiKey_KeypadSubtract     = 613
+	ImGuiKey_KeypadAdd          = 614
+	ImGuiKey_KeypadEnter        = 615
+	ImGuiKey_KeypadEqual        = 616
+	ImGuiKey_GamepadStart       = 617
+	ImGuiKey_GamepadBack        = 618
+	ImGuiKey_GamepadFaceLeft    = 619
+	ImGuiKey_GamepadFaceRight   = 620
+	ImGuiKey_GamepadFaceUp      = 621
+	ImGuiKey_GamepadFaceDown    = 622
+	ImGuiKey_GamepadDpadLeft    = 623
+	ImGuiKey_GamepadDpadRight   = 624
+	ImGuiKey_GamepadDpadUp      = 625
+	ImGuiKey_GamepadDpadDown    = 626
+	ImGuiKey_GamepadL1          = 627
+	ImGuiKey_GamepadR1          = 628
+	ImGuiKey_GamepadL2          = 629
+	ImGuiKey_GamepadR2          = 630
+	ImGuiKey_GamepadL3          = 631
+	ImGuiKey_GamepadR3          = 632
+	ImGuiKey_GamepadLStickLeft  = 633
+	ImGuiKey_GamepadLStickRight = 634
+	ImGuiKey_GamepadLStickUp    = 635
+	ImGuiKey_GamepadLStickDown  = 636
+	ImGuiKey_GamepadRStickLeft  = 637
+	ImGuiKey_GamepadRStickRight = 638
+	ImGuiKey_GamepadRStickUp    = 639
+	ImGuiKey_GamepadRStickDown  = 640
+	ImGuiKey_ModCtrl            = 641
+	ImGuiKey_ModShift           = 642
+	ImGuiKey_ModAlt             = 643
+	ImGuiKey_ModSuper           = 644
+	ImGuiKey_MouseLeft          = 645
+	ImGuiKey_MouseRight         = 646
+	ImGuiKey_MouseMiddle        = 647
+	ImGuiKey_MouseX1            = 648
+	ImGuiKey_MouseX2            = 649
+	ImGuiKey_MouseWheelX        = 650
+	ImGuiKey_MouseWheelY        = 651
+	ImGuiKey_COUNT              = 652
+	ImGuiKey_NamedKey_BEGIN     = 512
+	ImGuiKey_NamedKey_END       = 652
+	ImGuiKey_NamedKey_COUNT     = 140
+	ImGuiKey_KeysData_SIZE      = 652
+	ImGuiKey_KeysData_OFFSET    = 0
 )
