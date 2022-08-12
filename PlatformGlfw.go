@@ -595,36 +595,36 @@ func (platform *GLFW) onDrop(window *glfw.Window, names []string) {
 }
 
 func (platform *GLFW) posChange(window *glfw.Window, x, y int) {
-	platform.Update()
-
 	// Notfy pos changed and redraw.
 	if platform.posChangeCallback != nil {
 		platform.posChangeCallback(x, y)
 	}
+
+	platform.Update()
 }
 
 func (platform *GLFW) sizeChange(window *glfw.Window, width, height int) {
-	platform.Update()
-
 	// Notify size changed and redraw.
 	if platform.sizeChangeCallback != nil {
 		platform.sizeChangeCallback(width, height)
 	}
+
+	platform.Update()
 }
 
 func (platform *GLFW) mouseButtonChange(window *glfw.Window, rawButton glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
-	platform.Update()
-
 	buttonIndex, known := glfwButtonIndexByID[rawButton]
 
 	if known && (action == glfw.Press) {
 		platform.mouseJustPressed[buttonIndex] = true
 	}
+
+	platform.Update()
 }
 
 func (platform *GLFW) mouseScrollChange(window *glfw.Window, x, y float64) {
-	platform.Update()
 	platform.imguiIO.AddMouseWheelDelta(float32(x), float32(y))
+	platform.Update()
 }
 
 func (platform *GLFW) updateKeyModifiers(mods glfw.ModifierKey) {
@@ -635,8 +635,6 @@ func (platform *GLFW) updateKeyModifiers(mods glfw.ModifierKey) {
 }
 
 func (platform *GLFW) keyChange(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
-	platform.Update()
-
 	if action != glfw.Press && action != glfw.Release {
 		return
 	}
@@ -657,11 +655,13 @@ func (platform *GLFW) keyChange(window *glfw.Window, key glfw.Key, scancode int,
 	if platform.inputCallback != nil {
 		platform.inputCallback(key, mods, action)
 	}
+
+	platform.Update()
 }
 
 func (platform *GLFW) charChange(window *glfw.Window, char rune) {
-	platform.Update()
 	platform.imguiIO.AddInputCharacters(string(char))
+	platform.Update()
 }
 
 func (platform *GLFW) GetClipboard() string {
