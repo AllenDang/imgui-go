@@ -80,39 +80,9 @@ void iggIoSetMouseDrawCursor(IggIO handle, IggBool value) {
   io->MouseDrawCursor = value != 0;
 }
 
-void iggIoKeyPress(IggIO handle, int key) {
+void iggIoAddKeyEvent(IggIO handle, int imguiKey, IggBool pressed) {
   ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeysDown[key] = true;
-}
-
-void iggIoKeyRelease(IggIO handle, int key) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeysDown[key] = false;
-}
-
-void iggIoKeyMap(IggIO handle, int imguiKey, int nativeKey) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeyMap[imguiKey] = nativeKey;
-}
-
-void iggIoKeyCtrl(IggIO handle, int leftCtrl, int rightCtrl) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeyCtrl = io.KeysDown[leftCtrl] || io.KeysDown[rightCtrl];
-}
-
-void iggIoKeyShift(IggIO handle, int leftShift, int rightShift) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeyShift = io.KeysDown[leftShift] || io.KeysDown[rightShift];
-}
-
-void iggIoKeyAlt(IggIO handle, int leftAlt, int rightAlt) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeyAlt = io.KeysDown[leftAlt] || io.KeysDown[rightAlt];
-}
-
-void iggIoKeySuper(IggIO handle, int leftSuper, int rightSuper) {
-  ImGuiIO &io = *reinterpret_cast<ImGuiIO *>(handle);
-  io.KeySuper = io.KeysDown[leftSuper] || io.KeysDown[rightSuper];
+  io.AddKeyEvent(imguiKey, pressed);
 }
 
 void iggIoAddInputCharactersUTF8(IggIO handle, char const *utf8Chars) {

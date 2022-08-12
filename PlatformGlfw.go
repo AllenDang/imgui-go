@@ -106,7 +106,6 @@ func NewGLFW(io IO, title string, width, height int, flags GLFWWindowFlags) (*GL
 
 		tps: 60,
 	}
-	platform.setKeyMapping()
 	platform.installCallbacks()
 
 	// Create mosue cursors
@@ -319,29 +318,241 @@ func (platform *GLFW) updateMouseCursor() {
 	}
 }
 
-func (platform *GLFW) setKeyMapping() {
-	// Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
-	platform.imguiIO.KeyMap(KeyTab, int(glfw.KeyTab))
-	platform.imguiIO.KeyMap(KeyLeftArrow, int(glfw.KeyLeft))
-	platform.imguiIO.KeyMap(KeyRightArrow, int(glfw.KeyRight))
-	platform.imguiIO.KeyMap(KeyUpArrow, int(glfw.KeyUp))
-	platform.imguiIO.KeyMap(KeyDownArrow, int(glfw.KeyDown))
-	platform.imguiIO.KeyMap(KeyPageUp, int(glfw.KeyPageUp))
-	platform.imguiIO.KeyMap(KeyPageDown, int(glfw.KeyPageDown))
-	platform.imguiIO.KeyMap(KeyHome, int(glfw.KeyHome))
-	platform.imguiIO.KeyMap(KeyEnd, int(glfw.KeyEnd))
-	platform.imguiIO.KeyMap(KeyInsert, int(glfw.KeyInsert))
-	platform.imguiIO.KeyMap(KeyDelete, int(glfw.KeyDelete))
-	platform.imguiIO.KeyMap(KeyBackspace, int(glfw.KeyBackspace))
-	platform.imguiIO.KeyMap(KeySpace, int(glfw.KeySpace))
-	platform.imguiIO.KeyMap(KeyEnter, int(glfw.KeyEnter))
-	platform.imguiIO.KeyMap(KeyEscape, int(glfw.KeyEscape))
-	platform.imguiIO.KeyMap(KeyA, int(glfw.KeyA))
-	platform.imguiIO.KeyMap(KeyC, int(glfw.KeyC))
-	platform.imguiIO.KeyMap(KeyV, int(glfw.KeyV))
-	platform.imguiIO.KeyMap(KeyX, int(glfw.KeyX))
-	platform.imguiIO.KeyMap(KeyY, int(glfw.KeyY))
-	platform.imguiIO.KeyMap(KeyZ, int(glfw.KeyZ))
+func (platform *GLFW) keyToModifier(key glfw.Key) glfw.ModifierKey {
+	if key == glfw.KeyLeftControl || key == glfw.KeyRightControl {
+		return glfw.ModControl
+	}
+
+	if key == glfw.KeyLeftShift || key == glfw.KeyRightShift {
+		return glfw.ModShift
+	}
+
+	if key == glfw.KeyLeftAlt || key == glfw.KeyRightAlt {
+		return glfw.ModAlt
+	}
+
+	if key == glfw.KeyLeftSuper || key == glfw.KeyRightSuper {
+		return glfw.ModSuper
+	}
+
+	return 0
+}
+
+func (platform *GLFW) keyToImGuiKey(key glfw.Key) int {
+	switch key {
+	case glfw.KeyTab:
+		return ImGuiKey_Tab
+	case glfw.KeyLeft:
+		return ImGuiKey_LeftArrow
+	case glfw.KeyRight:
+		return ImGuiKey_RightArrow
+	case glfw.KeyUp:
+		return ImGuiKey_UpArrow
+	case glfw.KeyDown:
+		return ImGuiKey_DownArrow
+	case glfw.KeyPageUp:
+		return ImGuiKey_PageUp
+	case glfw.KeyPageDown:
+		return ImGuiKey_PageDown
+	case glfw.KeyHome:
+		return ImGuiKey_Home
+	case glfw.KeyEnd:
+		return ImGuiKey_End
+	case glfw.KeyInsert:
+		return ImGuiKey_Insert
+	case glfw.KeyDelete:
+		return ImGuiKey_Delete
+	case glfw.KeyBackspace:
+		return ImGuiKey_Backspace
+	case glfw.KeySpace:
+		return ImGuiKey_Space
+	case glfw.KeyEnter:
+		return ImGuiKey_Enter
+	case glfw.KeyEscape:
+		return ImGuiKey_Escape
+	case glfw.KeyApostrophe:
+		return ImGuiKey_Apostrophe
+	case glfw.KeyComma:
+		return ImGuiKey_Comma
+	case glfw.KeyMinus:
+		return ImGuiKey_Minus
+	case glfw.KeyPeriod:
+		return ImGuiKey_Period
+	case glfw.KeySlash:
+		return ImGuiKey_Slash
+	case glfw.KeySemicolon:
+		return ImGuiKey_Semicolon
+	case glfw.KeyEqual:
+		return ImGuiKey_Equal
+	case glfw.KeyLeftBracket:
+		return ImGuiKey_LeftBracket
+	case glfw.KeyBackslash:
+		return ImGuiKey_Backslash
+	case glfw.KeyRightBracket:
+		return ImGuiKey_RightBracket
+	case glfw.KeyGraveAccent:
+		return ImGuiKey_GraveAccent
+	case glfw.KeyCapsLock:
+		return ImGuiKey_CapsLock
+	case glfw.KeyScrollLock:
+		return ImGuiKey_ScrollLock
+	case glfw.KeyNumLock:
+		return ImGuiKey_NumLock
+	case glfw.KeyPrintScreen:
+		return ImGuiKey_PrintScreen
+	case glfw.KeyPause:
+		return ImGuiKey_Pause
+	case glfw.KeyKP0:
+		return ImGuiKey_Keypad0
+	case glfw.KeyKP1:
+		return ImGuiKey_Keypad1
+	case glfw.KeyKP2:
+		return ImGuiKey_Keypad2
+	case glfw.KeyKP3:
+		return ImGuiKey_Keypad3
+	case glfw.KeyKP4:
+		return ImGuiKey_Keypad4
+	case glfw.KeyKP5:
+		return ImGuiKey_Keypad5
+	case glfw.KeyKP6:
+		return ImGuiKey_Keypad6
+	case glfw.KeyKP7:
+		return ImGuiKey_Keypad7
+	case glfw.KeyKP8:
+		return ImGuiKey_Keypad8
+	case glfw.KeyKP9:
+		return ImGuiKey_Keypad9
+	case glfw.KeyKPDecimal:
+		return ImGuiKey_KeypadDecimal
+	case glfw.KeyKPDivide:
+		return ImGuiKey_KeypadDivide
+	case glfw.KeyKPMultiply:
+		return ImGuiKey_KeypadMultiply
+	case glfw.KeyKPSubtract:
+		return ImGuiKey_KeypadSubtract
+	case glfw.KeyKPAdd:
+		return ImGuiKey_KeypadAdd
+	case glfw.KeyKPEnter:
+		return ImGuiKey_KeypadEnter
+	case glfw.KeyKPEqual:
+		return ImGuiKey_KeypadEqual
+	case glfw.KeyLeftShift:
+		return ImGuiKey_LeftShift
+	case glfw.KeyLeftControl:
+		return ImGuiKey_LeftCtrl
+	case glfw.KeyLeftAlt:
+		return ImGuiKey_LeftAlt
+	case glfw.KeyLeftSuper:
+		return ImGuiKey_LeftSuper
+	case glfw.KeyRightShift:
+		return ImGuiKey_RightShift
+	case glfw.KeyRightControl:
+		return ImGuiKey_RightCtrl
+	case glfw.KeyRightAlt:
+		return ImGuiKey_RightAlt
+	case glfw.KeyRightSuper:
+		return ImGuiKey_RightSuper
+	case glfw.KeyMenu:
+		return ImGuiKey_Menu
+	case glfw.Key0:
+		return ImGuiKey_0
+	case glfw.Key1:
+		return ImGuiKey_1
+	case glfw.Key2:
+		return ImGuiKey_2
+	case glfw.Key3:
+		return ImGuiKey_3
+	case glfw.Key4:
+		return ImGuiKey_4
+	case glfw.Key5:
+		return ImGuiKey_5
+	case glfw.Key6:
+		return ImGuiKey_6
+	case glfw.Key7:
+		return ImGuiKey_7
+	case glfw.Key8:
+		return ImGuiKey_8
+	case glfw.Key9:
+		return ImGuiKey_9
+	case glfw.KeyA:
+		return ImGuiKey_A
+	case glfw.KeyB:
+		return ImGuiKey_B
+	case glfw.KeyC:
+		return ImGuiKey_C
+	case glfw.KeyD:
+		return ImGuiKey_D
+	case glfw.KeyE:
+		return ImGuiKey_E
+	case glfw.KeyF:
+		return ImGuiKey_F
+	case glfw.KeyG:
+		return ImGuiKey_G
+	case glfw.KeyH:
+		return ImGuiKey_H
+	case glfw.KeyI:
+		return ImGuiKey_I
+	case glfw.KeyJ:
+		return ImGuiKey_J
+	case glfw.KeyK:
+		return ImGuiKey_K
+	case glfw.KeyL:
+		return ImGuiKey_L
+	case glfw.KeyM:
+		return ImGuiKey_M
+	case glfw.KeyN:
+		return ImGuiKey_N
+	case glfw.KeyO:
+		return ImGuiKey_O
+	case glfw.KeyP:
+		return ImGuiKey_P
+	case glfw.KeyQ:
+		return ImGuiKey_Q
+	case glfw.KeyR:
+		return ImGuiKey_R
+	case glfw.KeyS:
+		return ImGuiKey_S
+	case glfw.KeyT:
+		return ImGuiKey_T
+	case glfw.KeyU:
+		return ImGuiKey_U
+	case glfw.KeyV:
+		return ImGuiKey_V
+	case glfw.KeyW:
+		return ImGuiKey_W
+	case glfw.KeyX:
+		return ImGuiKey_X
+	case glfw.KeyY:
+		return ImGuiKey_Y
+	case glfw.KeyZ:
+		return ImGuiKey_Z
+	case glfw.KeyF1:
+		return ImGuiKey_F1
+	case glfw.KeyF2:
+		return ImGuiKey_F2
+	case glfw.KeyF3:
+		return ImGuiKey_F3
+	case glfw.KeyF4:
+		return ImGuiKey_F4
+	case glfw.KeyF5:
+		return ImGuiKey_F5
+	case glfw.KeyF6:
+		return ImGuiKey_F6
+	case glfw.KeyF7:
+		return ImGuiKey_F7
+	case glfw.KeyF8:
+		return ImGuiKey_F8
+	case glfw.KeyF9:
+		return ImGuiKey_F9
+	case glfw.KeyF10:
+		return ImGuiKey_F10
+	case glfw.KeyF11:
+		return ImGuiKey_F11
+	case glfw.KeyF12:
+		return ImGuiKey_F12
+	default:
+		return ImGuiKey_None
+	}
 }
 
 func (platform *GLFW) installCallbacks() {
@@ -420,21 +631,32 @@ func (platform *GLFW) mouseScrollChange(window *glfw.Window, x, y float64) {
 	platform.imguiIO.AddMouseWheelDelta(float32(x), float32(y))
 }
 
+func (platform *GLFW) updateKeyModifiers(mods glfw.ModifierKey) {
+	platform.imguiIO.AddKeyEvent(ImGuiKey_ModCtrl, (mods&glfw.ModControl) != 0)
+	platform.imguiIO.AddKeyEvent(ImGuiKey_ModShift, (mods&glfw.ModShift) != 0)
+	platform.imguiIO.AddKeyEvent(ImGuiKey_ModAlt, (mods&glfw.ModAlt) != 0)
+	platform.imguiIO.AddKeyEvent(ImGuiKey_ModSuper, (mods&glfw.ModSuper) != 0)
+}
+
 func (platform *GLFW) keyChange(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
 	platform.Update()
 
-	if action == glfw.Press {
-		platform.imguiIO.KeyPress(int(key))
-	}
-	if action == glfw.Release {
-		platform.imguiIO.KeyRelease(int(key))
+	if action != glfw.Press && action != glfw.Release {
+		return
 	}
 
-	// Modifiers are not reliable across systems
-	platform.imguiIO.KeyCtrl(int(glfw.KeyLeftControl), int(glfw.KeyRightControl))
-	platform.imguiIO.KeyShift(int(glfw.KeyLeftShift), int(glfw.KeyRightShift))
-	platform.imguiIO.KeyAlt(int(glfw.KeyLeftAlt), int(glfw.KeyRightAlt))
-	platform.imguiIO.KeySuper(int(glfw.KeyLeftSuper), int(glfw.KeyRightSuper))
+	if mkey := platform.keyToModifier(key); mkey != 0 {
+		if action == glfw.Press {
+			mods |= mkey
+		} else {
+			mods &= mkey
+		}
+	}
+
+	platform.updateKeyModifiers(mods)
+
+	imguiKey := platform.keyToImGuiKey(key)
+	platform.imguiIO.AddKeyEvent(imguiKey, action == glfw.Press)
 
 	if platform.inputCallback != nil {
 		platform.inputCallback(key, mods, action)
