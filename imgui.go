@@ -6,6 +6,7 @@ package imgui
 // #cgo windows LDFLAGS: -limm32
 // #include "imguiWrapper.h"
 import "C"
+
 import (
 	"math"
 )
@@ -667,7 +668,7 @@ func InputIntV(label string, value *int32, step, step_fast int, flags int) bool 
 	valueArg, valueFin := wrapInt32(value)
 	defer valueFin()
 
-	return C.iggInputInt(labelArg, valueArg, C.int(0), C.int(100), C.int(flags)) != 0
+	return C.iggInputInt(labelArg, valueArg, C.int(step), C.int(step_fast), C.int(flags)) != 0
 }
 
 func InputFloat(label string, value *float32) bool {
@@ -1082,27 +1083,28 @@ func OpenPopup(id string) {
 }
 
 // Popups, Modals
-//  - They block normal mouse hovering detection (and therefore most mouse
-//  interactions) behind them.
-//  - If not modal: they can be closed by clicking anywhere outside them, or by
-//  pressing ESCAPE.
-//  - Their visibility state (~bool) is held internally instead of being held by
-//  the programmer as we are used to with regular Begin*() calls.
-//  - The 3 properties above are related: we need to retain popup visibility
-//  state in the library because popups may be closed as any time.
-//  - You can bypass the hovering restriction by using
-//  ImGuiHoveredFlags_AllowWhenBlockedByPopup when calling IsItemHovered() or
-//  IsWindowHovered().
-//  - IMPORTANT: Popup identifiers are relative to the current ID stack, so
-//  OpenPopup and BeginPopup generally needs to be at the same level of the
-//  stack.
-//    This is sometimes leading to confusing mistakes. May rework this in the
-//    future.
+//   - They block normal mouse hovering detection (and therefore most mouse
+//     interactions) behind them.
+//   - If not modal: they can be closed by clicking anywhere outside them, or by
+//     pressing ESCAPE.
+//   - Their visibility state (~bool) is held internally instead of being held by
+//     the programmer as we are used to with regular Begin*() calls.
+//   - The 3 properties above are related: we need to retain popup visibility
+//     state in the library because popups may be closed as any time.
+//   - You can bypass the hovering restriction by using
+//     ImGuiHoveredFlags_AllowWhenBlockedByPopup when calling IsItemHovered() or
+//     IsWindowHovered().
+//   - IMPORTANT: Popup identifiers are relative to the current ID stack, so
+//     OpenPopup and BeginPopup generally needs to be at the same level of the
+//     stack.
+//     This is sometimes leading to confusing mistakes. May rework this in the
+//     future.
+//
 // Popups: begin/end functions
-//  - BeginPopup(): query popup state, if open start appending into the window.
-//  Call EndPopup() afterwards. ImGuiWindowFlags are forwarded to the window.
-//  - BeginPopupModal(): block every interactions behind the window, cannot be
-//  closed by user, add a dimming background, has a title bar.
+//   - BeginPopup(): query popup state, if open start appending into the window.
+//     Call EndPopup() afterwards. ImGuiWindowFlags are forwarded to the window.
+//   - BeginPopupModal(): block every interactions behind the window, cannot be
+//     closed by user, add a dimming background, has a title bar.
 func BeginPopup(name string, flags int) bool {
 	nameArg, nameFin := wrapString(name)
 	defer nameFin()
