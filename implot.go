@@ -497,6 +497,10 @@ func ImPlotGetPlotSize() Vec2 {
 	return size
 }
 
+func ImPlotGetPlotDrawList() DrawList {
+	return DrawList(C.iggImPlotGetPlotDrawList())
+}
+
 func ImPlotIsPlotHovered() bool {
 	return C.iggImPlotIsPlotHovered() != 0
 }

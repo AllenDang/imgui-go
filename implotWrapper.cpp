@@ -153,6 +153,11 @@ void iggImPlotGetPlotSize(IggVec2 *size)
   exportValue(*size, ImPlot::GetPlotSize());
 }
 
+IggDrawList iggImPlotGetPlotDrawList() {
+  ImDrawList *drawlist = ImPlot::GetPlotDrawList();
+  return static_cast<IggDrawList>(drawlist);
+}
+
 IggBool iggImPlotIsPlotHovered() {
   return ImPlot::IsPlotHovered() ? 1 : 0;
 }

@@ -59,6 +59,7 @@ extern void iggImPlotPieChart(const char* const label_ids[], const double* value
 
 extern void iggImPlotGetPlotPos(IggVec2 *pos);
 extern void iggImPlotGetPlotSize(IggVec2 *size);
+extern IggDrawList iggImPlotGetPlotDrawList();
 extern IggBool iggImPlotIsPlotHovered();
 extern IggBool iggImPlotIsPlotXAxisHovered();
 extern IggBool iggImPlotIsPlotYAxisHovered(int y_axis);
